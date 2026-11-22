@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Architecture & Storage Systems — Visual Study Guide by Vijender</title>
+<style>
+  :root {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-card-alt: #162032;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --accent-blue: #38bdf8;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-purple: #a855f7;
+    --accent-rose: #f43f5e;
+    --border-color: #334155;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding-bottom: 60px;
+  }
+
+  /* Top Hero Header */
+  header.hero {
+    background: linear-gradient(135deg, #0284c7 0%, #1e1b4b 60%, #0f172a 100%);
+    padding: 40px 20px 50px;
+    text-align: center;
+    border-bottom: 2px solid var(--accent-blue);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .author-badge {
+    display: inline-block;
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  }
+
+  header.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  header.hero p {
+    color: var(--text-secondary);
+    max-width: 750px;
+    margin: 0 auto 25px;
+    font-size: 1.1rem;
+  }
+
+  /* Quick Navigation Bar */
+  nav.quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  nav.quick-nav a {
+    background: rgba(15, 23, 42, 0.75);
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  nav.quick-nav a:hover {
+    background: var(--accent-blue);
+    color: #0f172a;
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+  }
+
+  /* Container */
+  .container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  /* Question Section Card */
+  section.q-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .q-header {
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.15), rgba(30, 41, 59, 0.9));
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .q-num {
+    background: var(--accent-blue);
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding: 6px 14px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .q-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .q-body {
+    padding: 28px;
+  }
+
+  /* Infographic Box */
+  .infographic-box {
+    background: var(--bg-main);
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 26px;
+  }
+
+  .infographic-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    color: var(--accent-amber);
+    margin-bottom: 14px;
+    background: rgba(245, 158, 11, 0.12);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  /* Grid Helpers */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+  }
+
+  .mini-card {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .mini-card h4 {
+    color: var(--accent-blue);
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+  }
+
+  .mini-card.emerald h4 { color: var(--accent-emerald); }
+  .mini-card.amber h4 { color: var(--accent-amber); }
+  .mini-card.purple h4 { color: var(--accent-purple); }
+  .mini-card.rose h4 { color: var(--accent-rose); }
+
+  .mini-card p, .mini-card li {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  ul.clean-list {
+    padding-left: 20px;
+    margin-top: 8px;
+  }
+
+  ul.clean-list li {
+    margin-bottom: 6px;
+  }
+
+  /* Tables */
+  .table-wrap {
+    overflow-x: auto;
+    margin-top: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.94rem;
+  }
+
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  th {
+    background: #0f172a;
+    color: var(--accent-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.6px;
+  }
+
+  tr:nth-child(even) td {
+    background: rgba(15, 23, 42, 0.35);
+  }
+
+  /* Badges & Bars */
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .b-green { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+  .b-red { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
+  .b-amber { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+  .b-blue { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+
+  .bar-container {
+    background: #0f172a;
+    border-radius: 6px;
+    height: 12px;
+    width: 100%;
+    overflow: hidden;
+    margin: 6px 0;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+  }
+
+  .explanation-block {
+    margin-top: 18px;
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+  }
+
+  .explanation-block p {
+    margin-bottom: 12px;
+  }
+
+  .verdict-box {
+    background: rgba(16, 185, 129, 0.12);
+    border-left: 4px solid var(--accent-emerald);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 16px;
+  }
+
+  .verdict-box strong {
+    color: #34d399;
+  }
+
+  footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 40px;
+  }
+
+  @media print {
+    body { background: #ffffff; color: #0f172a; }
+    section.q-section { break-inside: avoid; border: 1px solid #cbd5e1; box-shadow: none; background: #ffffff; }
+    .infographic-box, .mini-card { background: #f8fafc; border-color: #cbd5e1; }
+    .q-title, h4 { color: #0f172a !important; }
+    p, li, td { color: #334155 !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="author-badge">Prepared By: Vijender</div>
+  <h1>Computer Architecture &amp; Storage Systems</h1>
+  <p>Complete Visual Study Guide &amp; Infographics (Questions 1 to 8)</p>
+  <nav class="quick-nav">
+    <a href="#q1">Q-1: CPU &amp; Memory</a>
+    <a href="#q2">Q-2: Instruction Cycle</a>
+    <a href="#q3">Q-3: Disk vs Tape</a>
+    <a href="#q4">Q-4: Sequential vs Direct</a>
+    <a href="#q5">Q-5: RAM vs ROM</a>
+    <a href="#q6">Q-6: Archival Storage</a>
+    <a href="#q7">Q-7: CPU Clock Critique</a>
+    <a href="#q8">Q-8: 60-Seat Lab Design</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- ==================== QUESTION 1 ==================== -->
+  <section id="q1" class="q-section">
+    <div class="q-header">
+      <span class="q-num">Q-1</span>
+      <h2 class="q-title">Three Main Functional Components of the CPU &amp; Four Types of Memory</h2>
+    </div>
+    <div class="q-body">
+      <div class="infographic-box">
+        <span class="infographic-label">Infographic: CPU Architecture &amp; Memory Hierarchy</span>
+        <svg viewBox="0 0 900 290" width="100%" style="max-height:290px; display:block; margin:auto;">
+          <!-- CPU Outer Box -->
+          <rect x="20" y="15" width="440" height="260" rx="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
+          <text x="240" y="42" fill="#38bdf8" font-size="16" font-weight="bold" text-anchor="middle">CENTRAL PROCESSING UNIT (CPU)</text>
+
+          <!-- Control Unit -->
+          <rect x="40" y="60" width="190" height="85" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+          <text x="135" y="88" fill="#f59e0b" font-size="14" font-weight="bold" text-anchor="middle">1. Control Unit (CU)</text>
+          <text x="135" y="110" fill="#cbd5e1" font-size="11" text-anchor="middle">Decodes instructions &amp;</text>
+          <text x="135" y="126" fill="#cbd5e1" font-size="11" text-anchor="middle">directs timing/control signals</text>
+
+          <!-- ALU -->
+          <rect x="250" y="60" width="190" height="85" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
+          <text x="345" y="88" fill="#10b981" font-size="14" font-weight="bold" text-anchor="middle">2. ALU</text>
+          <text x="345" y="110" fill="#cbd5e1" font-size="11" text-anchor="middle">Performs arithmetic (+,-) &amp;</text>
+          <text x="345" y="126" fill="#cbd5e1" font-size="11" text-anchor="middle">logical comparisons (AND, OR)</text>
+
+          <!-- Registers -->
+          <rect x="40" y="165" width="400" height="90" rx="8" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+          <text x="240" y="192" fill="#a855f7" font-size="14" font-weight="bold" text-anchor="middle">3. Registers (Fastest Internal Memory)</text>
+          <text x="240" y="214" fill="#cbd5e1" font-size="11" text-anchor="middle">Tiny, ultra-fast storage inside CPU (PC, IR, MAR, MDR, ACC)</text>
+          <text x="240" y="234" fill="#94a3b8" font-size="11" text-anchor="middle">Access Time: &lt; 1 nanosecond | Volatile</text>
+
+          <!-- Arrows -->
+          <path d="M 465 145 L 515 145" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+
+          <!-- Memory Pyramid on Right -->
+          <text x="700" y="36" fill="#f8fafc" font-size="15" font-weight="bold" text-anchor="middle">MEMORY HIERARCHY (Speed vs Size)</text>
+          <!-- Tier 1: Registers -->
+          <polygon points="650,50 750,50 775,98 625,98" fill="#a855f7" opacity="0.85"/>
+          <text x="700" y="80" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">1. Registers</text>
+
+          <!-- Tier 2: Cache -->
+          <polygon points="622,104 778,104 805,152 595,152" fill="#38bdf8" opacity="0.85"/>
+          <text x="700" y="134" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">2. Cache Memory (L1/L2/L3)</text>
+
+          <!-- Tier 3: RAM -->
+          <polygon points="592,158 808,158 835,206 565,206" fill="#10b981" opacity="0.85"/>
+          <text x="700" y="188" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">3. Main Memory (RAM)</text>
+
+          <!-- Tier 4: ROM -->
+          <polygon points="562,212 838,212 865,260 535,260" fill="#f59e0b" opacity="0.85"/>
+          <text x="700" y="242" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">4. Read-Only Memory (ROM)</text>
+        </svg>
+      </div>
+
+      <h3 style="color:var(--accent-blue); margin-bottom:12px;">A. Three Main Functional Components of the CPU</h3>
+      <div class="grid-3" style="margin-bottom:24px;">
+        <div class="mini-card amber">
+          <h4>1. Control Unit (CU)</h4>
+          <p>Acts as the supervisor of the computer. It fetches instructions from memory, decodes what needs to be done, and sends timing and control signals to coordinate the ALU, memory, and I/O devices.</p>
+        </div>
+        <div class="mini-card emerald">
+          <h4>2. Arithmetic Logic Unit (ALU)</h4>
+          <p>The computational engine of the CPU. It carries out mathematical calculations (addition, subtraction, multiplication) and logical decision-making operations (AND, OR, NOT, greater-than/equal comparisons).</p>
+        </div>
+        <div class="mini-card purple">
+          <h4>3. Registers</h4>
+          <p>High-speed temporary storage locations built directly inside the processor chip. They hold active instructions, memory addresses, and intermediate calculation results during execution.</p>
+        </div>
+      </div>
+
+      <h3 style="color:var(--accent-blue); margin-bottom:12px;">B. Four Types of Main / Primary Memory &amp; Key Characteristics</h3>
+      <div class="grid-4">
+        <div class="mini-card purple">
+          <h4>1. Registers</h4>
+          <p><strong>Key Characteristic:</strong> Fastest memory in the computer (operates at CPU clock speed), directly inside the CPU, with tiny capacity (a few bytes).</p>
+        </div>
+        <div class="mini-card">
+          <h4>2. Cache Memory</h4>
+          <p><strong>Key Characteristic:</strong> Ultra-fast SRAM placed between the CPU and RAM that stores frequently used instructions/data to prevent CPU waiting delays.</p>
+        </div>
+        <div class="mini-card emerald">
+          <h4>3. RAM (Random Access Memory)</h4>
+          <p><strong>Key Characteristic:</strong> Volatile read/write working memory that holds active programs and data; contents are erased immediately when power is turned off.</p>
+        </div>
+        <div class="mini-card amber">
+          <h4>4. ROM (Read-Only Memory)</h4>
+          <p><strong>Key Characteristic:</strong> Non-volatile memory that permanently stores essential firmware (like BIOS/UEFI) needed to start up the computer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUESTION 2 ==================== -->
+  <section id="q2" class="q-section">
+    <div class="q-header">
+      <span class="q-num">Q-2</span>
+      <h2 class="q-title">The Fetch–Decode–Execute Instruction Cycle &amp; Register Interactions</h2>
+    </div>
+    <div class="q-body">
+      <div class="infographic-box">
+        <span class="infographic-label">Infographic: Step-by-Step Register &amp; Bus Flow</span>
+        <svg viewBox="0 0 920 260" width="100%" style="max-height:260px; display:block; margin:auto;">
+          <!-- Stage 1: FETCH -->
+          <rect x="15" y="20" width="280" height="220" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="155" y="48" fill="#38bdf8" font-size="15" font-weight="bold" text-anchor="middle">STAGE 1: FETCH</text>
+          <text x="30" y="78" fill="#f8fafc" font-size="12" font-weight="bold">1. PC &rarr; MAR</text>
+          <text x="30" y="96" fill="#cbd5e1" font-size="11">Next instruction address copied to MAR.</text>
+          <text x="30" y="124" fill="#f8fafc" font-size="12" font-weight="bold">2. Address Bus &rarr; Main Memory</text>
+          <text x="30" y="142" fill="#cbd5e1" font-size="11">CU sends READ signal; instruction moves</text>
+          <text x="30" y="157" fill="#cbd5e1" font-size="11">via Data Bus into MDR.</text>
+          <text x="30" y="185" fill="#f8fafc" font-size="12" font-weight="bold">3. MDR &rarr; IR &amp; PC = PC + 1</text>
+          <text x="30" y="203" fill="#cbd5e1" font-size="11">Instruction loaded into IR; PC increments</text>
+          <text x="30" y="218" fill="#cbd5e1" font-size="11">to point to the next instruction.</text>
+
+          <!-- Arrow 1 to 2 -->
+          <path d="M 300 130 L 325 130" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow2)"/>
+          <defs>
+            <marker id="arrow2" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/>
+            </marker>
+          </defs>
+
+          <!-- Stage 2: DECODE -->
+          <rect x="330" y="20" width="260" height="220" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+          <text x="460" y="48" fill="#f59e0b" font-size="15" font-weight="bold" text-anchor="middle">STAGE 2: DECODE</text>
+          <text x="345" y="82" fill="#f8fafc" font-size="12" font-weight="bold">1. IR &rarr; Control Unit (CU)</text>
+          <text x="345" y="100" fill="#cbd5e1" font-size="11">CU reads the binary instruction in IR.</text>
+          <text x="345" y="132" fill="#f8fafc" font-size="12" font-weight="bold">2. Split Opcode &amp; Operand</text>
+          <text x="345" y="150" fill="#cbd5e1" font-size="11">Identifies operation (e.g., ADD) and</text>
+          <text x="345" y="165" fill="#cbd5e1" font-size="11">data address.</text>
+          <text x="345" y="195" fill="#f8fafc" font-size="12" font-weight="bold">3. Fetch Operand (if needed)</text>
+          <text x="345" y="213" fill="#cbd5e1" font-size="11">Operand address &rarr; MAR &rarr; MDR.</text>
+
+          <!-- Arrow 2 to 3 -->
+          <path d="M 595 130 L 620 130" stroke="#10b981" stroke-width="3" marker-end="url(#arrow3)"/>
+          <defs>
+            <marker id="arrow3" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#10b981"/>
+            </marker>
+          </defs>
+
+          <!-- Stage 3: EXECUTE -->
+          <rect x="625" y="20" width="280" height="220" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+          <text x="765" y="48" fill="#10b981" font-size="15" font-weight="bold" text-anchor="middle">STAGE 3: EXECUTE</text>
+          <text x="640" y="82" fill="#f8fafc" font-size="12" font-weight="bold">1. CU Activates ALU / Buses</text>
+          <text x="640" y="100" fill="#cbd5e1" font-size="11">Sends control signals to execute task.</text>
+          <text x="640" y="132" fill="#f8fafc" font-size="12" font-weight="bold">2. ALU + Accumulator (ACC)</text>
+          <text x="640" y="150" fill="#cbd5e1" font-size="11">ALU computes result using MDR &amp; ACC;</text>
+          <text x="640" y="165" fill="#cbd5e1" font-size="11">stores output back in ACC.</text>
+          <text x="640" y="195" fill="#f8fafc" font-size="12" font-weight="bold">3. Store / Loop Back</text>
+          <text x="640" y="213" fill="#cbd5e1" font-size="11">Writes result to RAM or repeats cycle.</text>
+        </svg>
+      </div>
+
+      <div class="explanation-block">
+        <p>Every program instruction is processed through a continuous loop called the <strong>Fetch–Decode–Execute cycle</strong> (machine cycle). Key registers and functional units coordinate over the system buses (Address, Data, and Control buses):</p>
+        <ul class="clean-list">
+          <li><strong>1. Fetch Phase:</strong> The <strong>Program Counter (PC)</strong> holds the memory address of the next instruction. This address is copied into the <strong>Memory Address Register (MAR)</strong> and placed on the Address Bus. The <strong>Control Unit (CU)</strong> sends a <em>Memory Read</em> signal to Main Memory (RAM). RAM places the instruction onto the Data Bus, where it is received by the <strong>Memory Data Register (MDR)</strong> and transferred into the <strong>Instruction Register (IR)</strong>. Simultaneously, the PC is incremented (<span style="color:var(--accent-blue); font-weight:bold;">PC &larr; PC + 1</span>) so it points to the subsequent instruction.</li>
+          <li><strong>2. Decode Phase:</strong> The <strong>Control Unit (CU)</strong> inspects the binary instruction inside the <strong>IR</strong>, splitting it into an <em>opcode</em> (what action to perform, e.g., ADD or LOAD) and an <em>operand</em> (the memory address of the required data). If data must be retrieved from RAM, the operand's address is sent to the <strong>MAR</strong>, and RAM loads that data value into the <strong>MDR</strong>.</li>
+          <li><strong>3. Execute Phase:</strong> The <strong>CU</strong> issues control signals to carry out the instruction. For arithmetic or logic instructions, the <strong>ALU</strong> takes the data from the <strong>MDR</strong> and combines it with the value currently held in the <strong>Accumulator (ACC)</strong>, storing the newly computed result back into the <strong>ACC</strong>. If the instruction is a <em>STORE</em> command, the value in the ACC is transferred to the MDR and written back to Main Memory at the address held in the MAR. The cycle then restarts for the next instruction.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUESTION 3 ==================== -->
+  <section id="q3" class="q-section">
+    <div class="q-header">
+      <span class="q-num">Q-3</span>
+      <h2 class="q-title">Deploying Magnetic Disks (HDDs) &amp; Magnetic Tape in a University Computer Centre</h2>
+    </div>
+    <div class="q-body">
+      <div class="infographic-box">
+        <span class="infographic-label">Infographic: Two-Tier University Student Record Storage Architecture</span>
+        <svg viewBox="0 0 900 220" width="100%" style="max-height:220px; display:block; margin:auto;">
+          <!-- Tier 1: Live Server -->
+          <rect x="20" y="25" width="370" height="170" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
+          <text x="205" y="55" fill="#38bdf8" font-size="15" font-weight="bold" text-anchor="middle">TIER 1: LIVE DATABASE (HDD / RAID)</text>
+          <text x="205" y="82" fill="#f8fafc" font-size="12" text-anchor="middle">&bull; Stores active admissions, attendance &amp; exam marks</text>
+          <text x="205" y="105" fill="#f8fafc" font-size="12" text-anchor="middle">&bull; Direct (Random) Access &rarr; Fast ms lookups</text>
+          <text x="205" y="128" fill="#f8fafc" font-size="12" text-anchor="middle">&bull; RAID-10 / RAID-5 array for 24/7 fault tolerance</text>
+          <text x="205" y="155" fill="#34d399" font-size="12" font-weight="bold" text-anchor="middle">Used Daily by Staff, Faculty &amp; Student Portals</text>
+
+          <!-- Flow Arrow -->
+          <path d="M 395 110 L 495 110" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow4)"/>
+          <text x="445" y="95" fill="#f59e0b" font-size="11" font-weight="bold" text-anchor="middle">Nightly / Weekly</text>
+          <text x="445" y="130" fill="#f59e0b" font-size="11" font-weight="bold" text-anchor="middle">Backup Job</text>
+          <defs>
+            <marker id="arrow4" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/>
+            </marker>
+          </defs>
+
+          <!-- Tier 2: Tape Library -->
+          <rect x="500" y="25" width="380" height="170" rx="12" fill="#1e293b" stroke="#a855f7" stroke-width="2.5"/>
+          <text x="690" y="55" fill="#a855f7" font-size="15" font-weight="bold" text-anchor="middle">TIER 2: PERIODIC BACKUP (LTO TAPE)</text>
+          <text x="690" y="82" fill="#f8fafc" font-size="12" text-anchor="middle">&bull; High-capacity sequential streaming of DB snapshots</text>
+          <text x="690" y="105" fill="#f8fafc" font-size="12" text-anchor="middle">&bull; Air-gapped (offline) protection against ransomware</text>
+          <text x="690" y="128" fill="#f8fafc" font-size="12" text-anchor="middle">&bull; Rotated weekly/monthly to off-site fireproof vault</text>
+          <text x="690" y="155" fill="#fbbf24" font-size="12" font-weight="bold" text-anchor="middle">Disaster Recovery &amp; Multi-Year Alumni Archive</text>
+        </svg>
+      </div>
+
+      <div class="grid-2">
+        <div class="mini-card">
+          <h4>1. Live Student Records on Magnetic Disks (HDD Arrays)</h4>
+          <ul class="clean-list">
+            <li><strong>Why HDDs:</strong> Student portals, fee counters, and exam offices perform thousands of random read/write queries every minute (e.g., looking up Roll No. 2045). Magnetic disks support <strong>direct (random) access</strong> with seek times in milliseconds.</li>
+            <li><strong>Deployment Setup:</strong> Enterprise SAS/SATA hard drives are configured in a <strong>RAID array</strong> (such as RAID-10 or RAID-5) inside the university database server so that if a single disk fails, live records stay online without interruption.</li>
+          </ul>
+        </div>
+        <div class="mini-card purple">
+          <h4>2. Periodic Backups on Magnetic Tape (LTO Cartridges)</h4>
+          <ul class="clean-list">
+            <li><strong>Why Magnetic Tape:</strong> Backing up the entire student database does not require random searches—data is written sequentially in one continuous stream, where modern LTO tapes achieve high sustained transfer speeds at the lowest cost per terabyte.</li>
+            <li><strong>Deployment &amp; Rotation (GFS Scheme):</strong> Automated backup software runs <strong>daily incremental backups</strong> and <strong>weekly/monthly full backups</strong> to an automated tape library. Cartridges are physically ejected (creating an <em>air gap</em> safe from hackers/ransomware) and stored in an off-site vault for disaster recovery.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUESTION 4 ==================== -->
+  <section id="q4" class="q-section">
+    <div class="q-header">
+      <span class="q-num">Q-4</span>
+      <h2 class="q-title">Sequential Access Devices vs. Direct Access Devices</h2>
+    </div>
+    <div class="q-body">
+      <div class="infographic-box">
+        <span class="infographic-label">Infographic: How Data Is Located &amp; Retrieved</span>
+        <div class="grid-2">
+          <div class="mini-card rose">
+            <h4>Sequential Access (Magnetic Tape)</h4>
+            <p style="margin-bottom:10px;">Must wind through Block 1 &rarr; Block 2 &rarr; Block 3 to reach Block 4.</p>
+            <div style="display:flex; gap:6px; align-items:center; margin:12px 0;">
+              <span class="badge b-red">B1</span> &rarr;
+              <span class="badge b-red">B2</span> &rarr;
+              <span class="badge b-red">B3</span> &rarr;
+              <span class="badge b-green">TARGET (B4)</span>
+            </div>
+            <p style="font-size:0.85rem; color:#94a3b8;">Access latency depends on physical tape position (seconds to minutes).</p>
+          </div>
+          <div class="mini-card emerald">
+            <h4>Direct / Random Access (HDD, Optical Disc)</h4>
+            <p style="margin-bottom:10px;">Read/write head or laser jumps straight to the target track &amp; sector.</p>
+            <div style="display:flex; gap:6px; align-items:center; margin:12px 0;">
+              <span class="badge b-blue">HEAD</span> &xrarr; <em>Jumps Directly</em> &xrarr;
+              <span class="badge b-green">TARGET (Track 14, Sector 8)</span>
+            </div>
+            <p style="font-size:0.85rem; color:#94a3b8;">Near-uniform access time regardless of file location (milliseconds).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Comparison Parameter</th>
+              <th>Sequential Access Devices (e.g., Magnetic Tape)</th>
+              <th>Direct Access Devices (e.g., Magnetic Disk, Optical Disc)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Data Retrieval Method</strong></td>
+              <td>Linear/sequential traversal: data must be read or skipped in exact physical order from the start of the tape until the target record is reached.</td>
+              <td>Addressable coordinates: each track and sector has a unique physical address, allowing the read/write head or laser to jump directly to the desired block.</td>
+            </tr>
+            <tr>
+              <td><strong>Access Time</strong></td>
+              <td><strong>Very Slow (Seconds to Minutes):</strong> Winding/rewinding reels to locate a specific file causes high latency, though sequential streaming speed is high.</td>
+              <td><strong>Fast (Milliseconds):</strong> Magnetic HDDs take ~4–12 ms; optical drives take ~80–150 ms regardless of where the file sits on the platter/disc.</td>
+            </tr>
+            <tr>
+              <td><strong>Typical Applications</strong></td>
+              <td>Automated nightly server backups, cold archival storage, disaster recovery vaults, and batch processing of massive sequential logs.</td>
+              <td>Operating systems, live transactional databases, everyday file storage (HDDs), software distribution, and media playback (CD/DVD/Blu-ray).</td>
+            </tr>
+            <tr>
+              <td><strong>Cost per Unit of Storage</strong></td>
+              <td><strong>Lowest (~$0.005–$0.01 per GB):</strong> Cartridges are inexpensive plastic reels; the expensive mechanism resides in the single tape drive.</td>
+              <td><strong>Low to Moderate (~$0.015–$0.03 per GB for HDD; ~$0.03–$0.06 per GB for Blu-ray):</strong> Higher precision mechanics per drive/disc increase cost over tape.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUESTION 5 ==================== -->
+  <section id="q5" class="q-section">
+    <div class="q-header">
+      <span class="q-num">Q-5</span>
+      <h2 class="q-title">Comparison of RAM (SRAM, DRAM) vs. ROM (PROM, EPROM, EEPROM)</h2>
+    </div>
+    <div class="q-body">
+      <div class="infographic-box">
+        <span class="infographic-label">Infographic: Boot-Up vs. Runtime Role</span>
+        <div class="grid-2">
+          <div class="mini-card amber">
+            <h4>Phase 1: Power-On &amp; System Boot-Up &rarr; ROM</h4>
+            <p>When you press the power button, RAM is completely empty. The CPU automatically jumps to <strong>ROM (EEPROM / Flash BIOS-UEFI)</strong> to run the Power-On Self-Test (POST), initialize hardware, and load the Operating System bootloader into RAM.</p>
+          </div>
+          <div class="mini-card emerald">
+            <h4>Phase 2: Program Execution &rarr; DRAM &amp; SRAM</h4>
+            <p>Once booted, the OS and user apps reside in <strong>DRAM (Main Memory)</strong> for large working capacity, while active instructions and variables are cached in <strong>SRAM (L1/L2/L3 Cache)</strong> so the CPU executes them at maximum speed.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Memory Type</th>
+              <th>Volatility</th>
+              <th>Speed</th>
+              <th>Cost / GB</th>
+              <th>Read / Write Capability</th>
+              <th>Role in Boot-Up &amp; Execution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SRAM</strong><br><span style="font-size:0.8rem; color:#94a3b8;">(Static RAM — 6-transistor flip-flops)</span></td>
+              <td><span class="badge b-red">Volatile</span></td>
+              <td><strong>Fastest</strong><br>(~0.5–2 ns)</td>
+              <td><strong>Very High</strong><br>(Complex circuitry)</td>
+              <td>Full Read &amp; Write (no refresh cycles needed)</td>
+              <td>Used as <strong>CPU Cache (L1/L2/L3)</strong> during program execution to feed instructions to CPU cores instantly.</td>
+            </tr>
+            <tr>
+              <td><strong>DRAM</strong><br><span style="font-size:0.8rem; color:#94a3b8;">(Dynamic RAM — transistor + capacitor)</span></td>
+              <td><span class="badge b-red">Volatile</span></td>
+              <td><strong>Fast</strong><br>(~10–50 ns)</td>
+              <td><strong>Moderate</strong><br>(High density)</td>
+              <td>Full Read &amp; Write (requires constant electrical refresh)</td>
+              <td>Serves as <strong>Main System Memory</strong> holding the active OS, open applications, and runtime variables.</td>
+            </tr>
+            <tr>
+              <td><strong>PROM</strong><br><span style="font-size:0.8rem; color:#94a3b8;">(Programmable ROM)</span></td>
+              <td><span class="badge b-green">Non-Volatile</span></td>
+              <td><strong>Moderate</strong><br>(~50–100 ns)</td>
+              <td><strong>Low</strong></td>
+              <td>Write-Once (fuses blown permanently), Read-Many</td>
+              <td>Stores fixed low-level hardware firmware/microcode read permanently during device initialization.</td>
+            </tr>
+            <tr>
+              <td><strong>EPROM</strong><br><span style="font-size:0.8rem; color:#94a3b8;">(Erasable PROM)</span></td>
+              <td><span class="badge b-green">Non-Volatile</span></td>
+              <td><strong>Moderate</strong><br>(~50–100 ns)</td>
+              <td><strong>Moderate</strong><br>(Quartz window)</td>
+              <td>Read-Many; erased completely by strong UV light and reprogrammed</td>
+              <td>Legacy BIOS/controller firmware storage during hardware prototyping and boot-up routines.</td>
+            </tr>
+            <tr>
+              <td><strong>EEPROM</strong><br><span style="font-size:0.8rem; color:#94a3b8;">(Electrically Erasable PROM / Flash)</span></td>
+              <td><span class="badge b-green">Non-Volatile</span></td>
+              <td><strong>Moderate Read / Slow Write</strong></td>
+              <td><strong>Moderate</strong></td>
+              <td>Read-Many; erased and rewritten electrically byte-by-byte in-circuit</td>
+              <td>Modern <strong>BIOS / UEFI chip</strong>: executes POST and boots the OS at startup, while allowing firmware updates.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUESTION 6 ==================== -->
+  <section id="q6" class="q-section">
+    <div class="q-header">
+      <span class="q-num">Q-6</span>
+      <h2 class="q-title">Assessment of Archival Media for Long-Term Institutional Records</h2>
+    </div>
+    <div class="q-body">
+      <div class="infographic-box">
+        <span class="infographic-label">Infographic: Multi-Criteria Archival Media Scorecard</span>
+        <div class="grid-3">
+          <div class="mini-card emerald" style="border: 2px solid var(--accent-emerald);">
+            <h4>1. Magnetic Tape Library (WINNER)</h4>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Capacity:</strong> Up to 18 TB native (45 TB compressed) per cartridge; petabytes in libraries</p>
+            <div class="bar-container"><div class="bar-fill" style="width:95%; background:var(--accent-emerald);"></div></div>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Cost Efficiency ($/GB):</strong> ~$0.005–$0.01/GB (Best)</p>
+            <div class="bar-container"><div class="bar-fill" style="width:95%; background:var(--accent-emerald);"></div></div>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Durability:</strong> 15–30 years in climate control</p>
+            <div class="bar-container"><div class="bar-fill" style="width:85%; background:var(--accent-emerald);"></div></div>
+            <p style="font-size:0.85rem;"><strong>Retrieval Time:</strong> Seconds to minutes (Robotic mount + seek)</p>
+          </div>
+
+          <div class="mini-card">
+            <h4>2. HDD Mass Storage Array (RAID/NAS)</h4>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Capacity:</strong> 16–24 TB per drive; scalable to petabytes</p>
+            <div class="bar-container"><div class="bar-fill" style="width:85%; background:var(--accent-blue);"></div></div>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Cost Efficiency ($/GB):</strong> Moderate + high 24/7 electricity/cooling</p>
+            <div class="bar-container"><div class="bar-fill" style="width:55%; background:var(--accent-blue);"></div></div>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Durability:</strong> 3–5 years motor/bearing lifespan</p>
+            <div class="bar-container"><div class="bar-fill" style="width:45%; background:var(--accent-rose);"></div></div>
+            <p style="font-size:0.85rem;"><strong>Retrieval Time:</strong> Instant (Milliseconds) — best for active data</p>
+          </div>
+
+          <div class="mini-card amber">
+            <h4>3. Optical Discs (CD/DVD/Blu-ray)</h4>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Capacity:</strong> Very Low (700 MB CD, 4.7 GB DVD, 25–100 GB Blu-ray)</p>
+            <div class="bar-container"><div class="bar-fill" style="width:20%; background:var(--accent-rose);"></div></div>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Cost Efficiency ($/GB):</strong> High labor &amp; media overhead at TB scale</p>
+            <div class="bar-container"><div class="bar-fill" style="width:40%; background:var(--accent-amber);"></div></div>
+            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Durability:</strong> 20–50+ years (M-DISC/archival grade)</p>
+            <div class="bar-container"><div class="bar-fill" style="width:90%; background:var(--accent-emerald);"></div></div>
+            <p style="font-size:0.85rem;"><strong>Retrieval Time:</strong> Milliseconds if mounted; hours if manual shelf swap</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="verdict-box">
+        <p><strong>Final Verdict &amp; Justification:</strong> A <strong>Magnetic Tape Library (LTO-8 / LTO-9)</strong> is the most suitable medium for long-term archiving of institutional records.</p>
+        <ul class="clean-list" style="margin-top:8px;">
+          <li><strong>Storage Capacity:</strong> A single LTO-9 cartridge stores 18 TB natively (up to 45 TB compressed), and automated robotic libraries scale effortlessly to multi-petabyte institutional archives—whereas optical discs would require tens of thousands of individual discs.</li>
+          <li><strong>Cost per GB:</strong> Tape delivers the lowest total cost of ownership (~$0.005–$0.01/GB) and consumes <strong>zero electricity</strong> once written and shelved, unlike RAID/NAS disk arrays that require continuous power, cooling, and drive replacements every 3–5 years.</li>
+          <li><strong>Durability &amp; Security:</strong> Properly stored LTO tape lasts <strong>15–30 years</strong>, resists bit-rot better than powered-off flash/HDDs, and provides an offline <em>air gap</em> immune to cyberattacks.</li>
+          <li><strong>Data Retrieval Time Trade-off:</strong> While tape retrieval takes seconds to a few minutes (compared to milliseconds on RAID/NAS), archival records are accessed infrequently for audits or historical verification, making slightly slower retrieval an acceptable trade-off for massive capacity, longevity, and low cost.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUESTION 7 ==================== -->
+  <section id="q7" class="q-section">
+    <div class="q-header">
+      <span class="q-num">Q-7</span>
+      <h2 class="q-title">Critique: "Increasing CPU Clock Speed Alone Is the Best Way to Improve Performance"</h2>
+    </div>
+    <div class="q-body">
+      <div class="infographic-box">
+        <span class="infographic-label">Infographic: Why Clock Speed Alone Hits a Wall (The 4 Key Multipliers)</span>
+        <div class="grid-4">
+          <div class="mini-card">
+            <h4>1. Cache Memory Size</h4>
+            <p><strong>Prevents CPU Starvation:</strong> RAM is ~100&times; slower than the CPU. Larger L1/L2/L3 caches keep data beside the cores so a fast clock isn't wasted waiting on RAM.</p>
+          </div>
+          <div class="mini-card emerald">
+            <h4>2. Word Length (32 vs 64-bit)</h4>
+            <p><strong>Data Width per Cycle:</strong> A 64-bit word processes twice as much data per clock tick as 32-bit and unlocks &gt;4 GB RAM addressing.</p>
+          </div>
+          <div class="mini-card purple">
+            <h4>3. Number of Cores</h4>
+            <p><strong>True Parallelism:</strong> Multiple cores run many threads simultaneously without hitting the extreme heat and power limits ("Power Wall") of 5+ GHz clocks.</p>
+          </div>
+          <div class="mini-card amber">
+            <h4>4. Main Memory Capacity</h4>
+            <p><strong>Eliminates Disk Thrashing:</strong> Insufficient RAM forces the OS to swap pages to slow SSD/HDD storage, crippling speed regardless of CPU GHz.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="explanation-block">
+        <p><strong>Critique Statement:</strong> The claim that <em>"increasing CPU clock speed alone is the best way to improve computer performance"</em> is <strong>flawed and outdated</strong>. Clock speed (measured in GHz) only dictates how many raw cycles occur per second—not how much useful work is completed per cycle or how fast data reaches the processor. Furthermore, pushing clock speeds higher causes exponential heat dissipation and power consumption (the <em>Power Wall</em>).</p>
+        <ul class="clean-list">
+          <li><strong>Role of Cache Memory Size:</strong> Because DRAM is vastly slower than modern CPUs, a high-GHz processor without adequate L1/L2/L3 cache spends most of its cycles stalled waiting for data (the <em>Memory Wall</em>). Larger cache memory dramatically raises the cache hit rate, keeping execution pipelines fed.</li>
+          <li><strong>Role of Word Length:</strong> Word length (e.g., 64-bit vs. 32-bit) defines how many bits the CPU registers, ALU, and data buses handle in a single operation. Doubling word length doubles numerical precision and data throughput per clock cycle while expanding directly addressable memory beyond 4 GB.</li>
+          <li><strong>Role of Number of Cores:</strong> Modern operating systems, compilers, browsers, and multitasking workloads rely on parallel execution. A 4-core or 8-core CPU at 3.5 GHz completes multi-threaded tasks far faster and cooler than a single-core CPU pushed to 5.0 GHz.</li>
+          <li><strong>Role of Main Memory (RAM) Capacity:</strong> If main memory capacity is too small for active programs, the operating system resorts to <em>virtual memory paging/swapping</em> on secondary storage (SSD/HDD), which is thousands of times slower than RAM and creates an immediate system bottleneck.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUESTION 8 ==================== -->
+  <section id="q8" class="q-section">
+    <div class="q-header">
+      <span class="q-num">Q-8</span>
+      <h2 class="q-title">Balanced Processor, Memory &amp; Storage Design for a 60-Student College Computer Lab</h2>
+    </div>
+    <div class="q-body">
+      <div class="infographic-box">
+        <span class="infographic-label">Infographic: 60-Workstation Lab + Central Lab Server Blueprint</span>
+        <svg viewBox="0 0 920 225" width="100%" style="max-height:225px; display:block; margin:auto;">
+          <!-- Left: 60 Student PCs -->
+          <rect x="20" y="20" width="440" height="185" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
+          <text x="240" y="48" fill="#38bdf8" font-size="15" font-weight="bold" text-anchor="middle">60 STUDENT WORKSTATIONS (Balanced Spec)</text>
+          <text x="40" y="78" fill="#f8fafc" font-size="12"><tspan font-weight="bold" fill="#34d399">CPU:</tspan> 6-Core / 12-Thread (e.g., Core i5 / Ryzen 5, ~3.5–4.4 GHz)</text>
+          <text x="40" y="103" fill="#f8fafc" font-size="12"><tspan font-weight="bold" fill="#34d399">Cache:</tspan> 12–18 MB L3 Smart Cache (fast compilation &amp; IDE responsiveness)</text>
+          <text x="40" y="128" fill="#f8fafc" font-size="12"><tspan font-weight="bold" fill="#34d399">RAM:</tspan> 16 GB DDR4/DDR5 Dual-Channel (2 &times; 8 GB modules)</text>
+          <text x="40" y="153" fill="#f8fafc" font-size="12"><tspan font-weight="bold" fill="#34d399">Primary Storage:</tspan> 512 GB NVMe M.2 SSD (OS, compilers, local scratch)</text>
+          <text x="40" y="182" fill="#94a3b8" font-size="11">Standardized identical hardware = easy cloning &amp; zero spare-part mismatch</text>
+
+          <!-- Network Link -->
+          <path d="M 465 112 L 535 112" stroke="#10b981" stroke-width="3" marker-end="url(#arrow5)"/>
+          <text x="500" y="98" fill="#10b981" font-size="11" font-weight="bold" text-anchor="middle">1 Gbps</text>
+          <text x="500" y="130" fill="#10b981" font-size="11" font-weight="bold" text-anchor="middle">LAN</text>
+          <defs>
+            <marker id="arrow5" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#10b981"/>
+            </marker>
+          </defs>
+
+          <!-- Right: Central Lab Server & Backup -->
+          <rect x="540" y="20" width="360" height="185" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
+          <text x="720" y="48" fill="#f59e0b" font-size="15" font-weight="bold" text-anchor="middle">CENTRAL LAB NAS &amp; BACKUP TIER</text>
+          <text x="560" y="78" fill="#f8fafc" font-size="12"><tspan font-weight="bold" fill="#fbbf24">Lab NAS Server:</tspan> 4-Bay NAS with 4 &times; 4 TB Enterprise HDDs</text>
+          <text x="560" y="103" fill="#f8fafc" font-size="12"><tspan font-weight="bold" fill="#fbbf24">RAID Config:</tspan> RAID-5 (12 TB usable + 1-drive fault tolerance)</text>
+          <text x="560" y="128" fill="#f8fafc" font-size="12"><tspan font-weight="bold" fill="#fbbf24">Role:</tspan> Student home folders, ISO images &amp; PXE OS recovery</text>
+          <text x="560" y="153" fill="#f8fafc" font-size="12"><tspan font-weight="bold" fill="#fbbf24">Off-Site Backup:</tspan> External USB-3 HDD rotation / LTO Tape drive</text>
+          <text x="560" y="182" fill="#94a3b8" font-size="11">Follows 3-2-1 Backup Rule within a tight academic budget</text>
+        </svg>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Subsystem</th>
+              <th>Proposed Specification</th>
+              <th>Budget &amp; Performance Justification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Processor (CPU)</strong></td>
+              <td>Mid-range 64-bit <strong>6-Core / 12-Thread CPU</strong> (e.g., Intel Core i5 or AMD Ryzen 5) with 12–18 MB L3 Cache</td>
+              <td>Avoids expensive flagship chips while easily handling IDEs (VS Code, Python, Java, C++), databases, and light virtualization without bottlenecking.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Main Memory (RAM &amp; Cache)</strong></td>
+              <td><strong>16 GB DDR4/DDR5</strong> configured in <strong>Dual-Channel (2 &times; 8 GB)</strong> + 12–18 MB L3 Cache</td>
+              <td>8 GB is too tight for modern browsers + compilers + VMs; 16 GB eliminates disk swapping, and dual-channel doubles memory bandwidth at minimal extra cost.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Primary Storage (Per PC)</strong></td>
+              <td><strong>512 GB NVMe M.2 SSD</strong> per workstation</td>
+              <td>Delivers 10-second boot times and fast project builds; keeping local capacity at 512 GB saves budget across 60 PCs because heavy files live on the central NAS.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Backup &amp; Mass Storage</strong></td>
+              <td><strong>Central 4-Bay NAS (4 &times; 4 TB HDD in RAID-5 = 12 TB usable)</strong> + Weekly Offline External HDD / LTO Tape Backup</td>
+              <td>Centralizes student profiles, software installers, and nightly workstation backups; RAID-5 protects against single-disk failure, while offline rotation guards against ransomware.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Created for <strong>Vijender</strong> &bull; Computer Architecture &amp; Storage Systems Visual Study Guide (Q-1 to Q-8)
+</footer>
+
+</body>
+</html>
